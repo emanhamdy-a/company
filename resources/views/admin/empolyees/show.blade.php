@@ -1,6 +1,5 @@
 @extends('admin.index')
 @section('content')
-<div class="content-wrapper">
   <!-- Main content -->
   <section class="content">
     <!-- Default box -->
@@ -76,5 +75,4 @@
     <!-- /.card -->
   </section>
   <!-- /.content -->
-</div>
 @endsection

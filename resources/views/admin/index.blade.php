@@ -9,9 +9,11 @@
   @include('admin.layouts.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
-    <section class="content" style='width:100%;'>
-      @yield('content')
-    </section>
+  <div class="content-wrapper">
+      <section class="content" id='maxContainer' style='width:100%;'>
+        @yield('content')
+      </section>
+  </div>
   <!-- /.content-wrapper -->
 
   <!-- Control Sidebar -->

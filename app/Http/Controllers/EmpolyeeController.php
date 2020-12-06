@@ -48,8 +48,8 @@ class empolyeeController extends Controller
   public function store(Request $request)
   {
     $data=$request->validate([
-      'first_name' => 'required|min:8|max:50',
-      'last_name' => 'required|min:8|max:50',
+      'first_name' => 'required|min:2|max:50',
+      'last_name' => 'required|min:2|max:50',
       'phone' => 'required|numeric',
       'email' => 'required|email|max:150',
       'company_id' => 'required|integer',
@@ -111,8 +111,8 @@ class empolyeeController extends Controller
   public function update(Request $request, empolyee $empolyee)
   {
     $data=$request->validate([
-      'first_name' => 'required|min:8|max:50',
-      'last_name' => 'required|min:8|max:50',
+      'first_name' => 'required|min:2|max:50',
+      'last_name' => 'required|min:2|max:50',
       'phone' => 'required|numeric',
       'email' => 'required|email|max:150',
       'company_id' => 'required|integer',
@@ -160,13 +160,19 @@ class empolyeeController extends Controller
   }
   public function search(Request $request)
   {
-    if($request->search === null){
-      $request->search='@#!TR%$BVAD09(';
-    }
+
     $empolyees= Empolyee::where('first_name', 'LIKE', '%'.$request->search.'%')
-    ->orwhere('status','=',$request->status)
+    ->where('status','LIKE',$request->status)
     ->orderBy('id','asc')
     ->paginate(10);
+
+
+    $title='empolyees';
+
+    if(request()->ajax()) {
+      return view('admin.empolyees.index',compact('empolyees','title'))->renderSections()['content'];
+    }
+
     return view('admin.empolyees.index',[
       'empolyees'=> $empolyees, 'title'=>'empolyees'
     ]);
@@ -176,6 +182,15 @@ class empolyeeController extends Controller
     $empolyee = Empolyee::findOrFail($id);
     $empolyee->status='1';
     $empolyee->save();
+    if(request()->ajax()) {
+      return response()->json(['status' => true,
+        'html'=> '<a href="/admin/empolyees/disable/' . $empolyee->id . '"
+        class="btn btn-light border p-2 deactivated"
+        id="activated' . $empolyee->id . '">
+        Disable
+        </a>'
+      ]);
+    }
     session()->flash('success', 'Empolyee Activated successfully .');
     return redirect()->back();
   }
@@ -185,6 +200,15 @@ class empolyeeController extends Controller
     $empolyee = Empolyee::findOrFail($id);
     $empolyee->status='0';
     $empolyee->save();
+    if(request()->ajax()) {
+      return response()->json(['status' => true,
+        'html'=> '<a href="/admin/empolyees/enable/' . $empolyee->id . '"
+        class="btn btn-secondary border p-2 activated"
+        id="deactivated' . $empolyee->id . '">
+        Enable
+        </a>'
+      ]);
+    }
     session()->flash('success', 'Empolyee dectivated successfully .');
     return redirect()->back();
   }

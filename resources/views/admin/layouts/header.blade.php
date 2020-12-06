@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-  <title>AdminLTE 3 | Dashboard 2</title>
+  <title>@if($title) {{$title}} @else Three Hand @endif</title>
 
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ url('/') }}/dashboard/plugins/fontawesome-free/css/all.min.css">

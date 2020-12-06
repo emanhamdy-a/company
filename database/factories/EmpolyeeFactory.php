@@ -27,7 +27,7 @@ class EmpolyeeFactory extends Factory
       'first_name' => $this->faker->firstName,
       'last_name' =>  $this->faker->lastName,
       'status' =>  $this->faker->randomElement([0,1]),
-      'phone' =>  $this->faker->phoneNumber,
+      'phone' =>  $this->faker->numberBetween($min = 12311154650, $max = 99887722114),
       'email' =>  $this->faker->unique()->safeEmail,
       'company_id' => Company::all()->random()->id,
     ];

@@ -1,6 +1,5 @@
 @extends('admin.index')
 @section('content')
-<div class="content-wrapper">
   <!-- Content Header (Page header) -->
   <div class="content-header">
     <div class="container-fluid">
@@ -42,7 +41,7 @@
               @method('PUT')
               <div class="card-body">
                 <div class="form-group">
-                  <label for="createCompanyName">Company name</label>
+                  <label for="createCompanyName">Name</label>
                   <input type="text" name="name"
                     class="form-control @error('name') is-invalid @enderror"
                     id="createCompanyName"
@@ -57,7 +56,7 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                  <label for="createCompanyWepsite">Company wepsite</label>
+                  <label for="createCompanyWepsite">Wepsite</label>
                   <input type="text" name="wepsite"
                    class="form-control @error('wepsite') is-invalid @enderror"
                    id="createCompanyWepsite"
@@ -72,7 +71,7 @@
                   @enderror
                 </div>
                 <div class="form-group">
-                  <label for="createCompanyEmail">Company email</label>
+                  <label for="createCompanyEmail">Email</label>
                   <input type="email" name="email"
                    class="form-control @error('email') is-invalid @enderror"
                    id="createCompanyEmail"
@@ -87,7 +86,7 @@
                   @enderror
                 </div>
                 <div class="form-group">
-                  <label for="createCompanyStatus">Company status</label>
+                  <label for="createCompanyStatus">Status</label>
                   <select name="status"
                     class="form-control @error('status') is-invalid @enderror"
                     id="createCompanyStatus" aria-invalid="false">
@@ -116,7 +115,7 @@
                   @enderror
                 </div>
                 <div class="form-group">
-                  <label for="createCompanylogo">Company logo</label>
+                  <label for="createCompanylogo">Logo</label>
                   <input type="file" name="logo"
                   class="form-control @error('logo') is-invalid @enderror"
                   id="createCompanylogo"
@@ -146,5 +145,4 @@
     </div><!--/. container-fluid -->
   </section>
   <!-- /.content -->
-</div>
 @endsection

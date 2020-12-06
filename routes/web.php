@@ -41,7 +41,7 @@ Route::group(['prefix' => 'admin','middleware' => ['is_super']],
     Route::get('/companies/enable/{id}',[CompanyController::class, 'enable']);
 
     Route::get('/companies/disable/{id}',[CompanyController::class, 'disable']);
-    Route::put('/companies',[CompanyController::class, 'search']);
+    Route::get('/companies-search',[CompanyController::class, 'search']);
 
 
     Route::resource('/empolyees', EmpolyeeController::class);
@@ -49,6 +49,6 @@ Route::group(['prefix' => 'admin','middleware' => ['is_super']],
     Route::get('/empolyees/enable/{id}',[EmpolyeeController::class, 'enable']);
 
     Route::get('/empolyees/disable/{id}',[EmpolyeeController::class, 'disable']);
-    Route::put('/empolyees',[EmpolyeeController::class, 'search']);
+    Route::get('/empolyees-search',[EmpolyeeController::class, 'search']);
 
   });

@@ -149,15 +149,19 @@ class CompanyController extends Controller
   }
   public function search(Request $request)
   {
-    if($request->search === null){
-      $request->search='@#!TR%$BVAD09(';
-    }
+
     $companies= Company::where('name', 'LIKE', '%'.$request->search.'%')
-    ->orwhere('status','=',$request->status)
+    ->where('status','LIKE',$request->status)
     ->orderBy('id','asc')
     ->paginate(10);
+
+    $title='Companies';
+
+    if(request()->ajax()) {
+      return view('admin.companies.index',compact('companies','title'))->renderSections()['content'];
+    }
     return view('admin.companies.index',[
-      'companies'=> $companies, 'title'=>'Companies'
+      'companies'=> $companies, 'title'=>$title
     ]);
   }
   public function enable($id)
@@ -165,6 +169,15 @@ class CompanyController extends Controller
     $company = Company::findOrFail($id);
     $company->status='1';
     $company->save();
+    if(request()->ajax()) {
+      return response()->json(['status' => true,
+        'html'=> '<a href="/admin/companies/disable/' . $company->id . '"
+        class="btn btn-light border p-2 deactivated"
+        id="activated' . $company->id . '">
+        Disable
+        </a>'
+      ]);
+    }
     session()->flash('success', 'Company Activated successfully .');
     return redirect()->back();
   }
@@ -174,7 +187,16 @@ class CompanyController extends Controller
     $company = Company::findOrFail($id);
     $company->status='0';
     $company->save();
-    session()->flash('success', 'Company dectivated successfully .');
+    if(request()->ajax()) {
+      return response()->json(['status' => true,
+        'html'=> '<a href="/admin/companies/enable/' . $company->id . '"
+        class="btn btn-secondary border p-2 activated"
+        id="deactivated' . $company->id . '">
+        Enable
+        </a>'
+      ]);
+    }
+    session()->flash('success', 'Company Deactivated successfully .');
     return redirect()->back();
   }
 }
